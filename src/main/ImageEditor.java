@@ -4,8 +4,8 @@ import java.io.PrintWriter;
 
 public class ImageEditor {
 	public static void main(String[] args){
-		String inputFileString = "/home/edwardekstrom/workspace/ImageEditor/src/main/slctemple.ppm";
-		String outputFileString = "/home/edwardekstrom/workspace/ImageEditor/src/main/output.ppm";
+		String inputFileString = "C:\\Users\\i53425\\Documents\\ImageEditor\\src\\main\\slctemple.ppm";
+		String outputFileString = "C:\\Users\\i53425\\Documents\\ImageEditor\\src\\main\\output.ppm";
 		String action = "invert";
 		int blurLength = -1;
 		
@@ -25,6 +25,7 @@ public class ImageEditor {
 		try{
 			PrintWriter writer = new PrintWriter(outputFileString, "UTF-8");
 			if(action.equals("invert")){
+                                inputImage.invert();
 				writer.print(inputImage.toString());
 			}
 		}catch (Exception e){
