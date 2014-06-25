@@ -20,7 +20,7 @@ public class Spell implements SpellCorrector{
 		Spell spellCorrector = new Spell();
 		try{
 			spellCorrector.useDictionary(dictionaryPath);
-			String similarWrod = spellCorrector.suggestSimilarWord("hel");
+			String similarWrod = spellCorrector.suggestSimilarWord("hell");
 			System.out.println(similarWrod);
 		}catch(IOException e){
 			e.printStackTrace();
