@@ -64,7 +64,7 @@ public class Trie240 implements Trie{
 		return _totalNodes;
 	}
 	
-	private class Node implements Trie.Node{
+	public class Node implements Trie.Node{
 		public int _wordCount;
 		public Node[] _children;
 		public String _string;
