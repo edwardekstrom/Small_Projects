@@ -4,9 +4,9 @@ import java.io.PrintWriter;
 
 public class ImageEditor {
 	public static void main(String[] args) {
-		String inputFileString = "/home/edwardekstrom/workspace/ImageEditor/src/main/slctemple.ppm";
-		String outputFileString = "/home/edwardekstrom/workspace/ImageEditor/src/main/output.ppm";
-		String action = "emboss";
+		String inputFileString = "/home/edwardekstrom/workspace/ImageEditor/src/slctemple.ppm";
+		String outputFileString = "/home/edwardekstrom/workspace/ImageEditor/src/output.ppm";
+		String action = "invert";
 		int blurLength = -1;
 
 		if (args.length > 4) {
