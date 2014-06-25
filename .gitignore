@@ -9,3 +9,5 @@
 build.xml
 nbproject/
 src/main/output.ppm
+src/output.ppm
+*.class
