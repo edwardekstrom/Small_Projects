@@ -6,7 +6,7 @@ public class ImageEditor {
 	public static void main(String[] args) {
 		String inputFileString = "/home/edwardekstrom/workspace/ImageEditor/src/slctemple.ppm";
 		String outputFileString = "/home/edwardekstrom/workspace/ImageEditor/src/output.ppm";
-		String action = "invert";
+		String action = "grayscale";
 		int blurLength = -1;
 
 		if (args.length > 4) {

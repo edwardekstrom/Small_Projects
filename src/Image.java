@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Image {
 	private Pixel[][] _imageArray;
@@ -31,26 +32,31 @@ public class Image {
 		try {
 			inputFile = new File(inputFileString);
 			scanner = new Scanner(inputFile);
+			scanner.useDelimiter("\\s+|#[^\\n]*\\n");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
-		StringBuilder sb = new StringBuilder();
-		while (scanner.hasNextLine()) {
-			String curLine = scanner.nextLine();
-			if (curLine.contains("#")) {
-				curLine = curLine.substring(0, curLine.indexOf("#"));
-			}
-			sb.append(curLine + "\n");
+//		StringBuilder sb = new StringBuilder();
+//		while (scanner.hasNextLine()) {
+//			String curLine = scanner.nextLine();
+//			if (curLine.contains("#")) {
+//				curLine = curLine.substring(0, curLine.indexOf("#"));
+//			}
+//			sb.append(curLine + "\n");
+//		}
+//		
+//		scanner = new Scanner(sb.toString());
+		int f = 0;
+		while (scanner.hasNext() && f < 10) {
+			String next = scanner.next();
+			System.out.println(next);
+			if (next.equals("P3")) break;
+			f++;
 		}
-
-		scanner = new Scanner(sb.toString());
-
-		while (scanner.hasNext()) {
-			if (scanner.next().equals("P3"))
-				break;
-		}
-
+		
+//		System.out.println(scanner.next().length());
+		
 		_cols = scanner.nextInt();
 		_rows = scanner.nextInt();
 		_max = scanner.nextInt();
@@ -166,12 +172,12 @@ public class Image {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("P3 " + _cols + " " + _rows + " " + _max + "\n");
+		sb.append("P3\n" + _cols + "\n" + _rows + "\n" + _max + "\n");
 		for (int i = 0; i < _rows; i++) {
 			for (int j = 0; j < _cols; j++) {
-				sb.append(_outputArray[i][j].red + " ");
-				sb.append(_outputArray[i][j].green + " ");
-				sb.append(_outputArray[i][j].blue + " ");
+				sb.append(_outputArray[i][j].red + "\n");
+				sb.append(_outputArray[i][j].green + "\n");
+				sb.append(_outputArray[i][j].blue + " \n");
 			}
 		}
 		return sb.toString();
