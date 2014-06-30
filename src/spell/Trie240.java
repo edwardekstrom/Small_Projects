@@ -59,6 +59,11 @@ public class Trie240 implements Trie{
 	}
 
 	@Override
+	public int hashCode(){
+		return _totalWords * _totalNodes * 7;
+	}
+
+	@Override
 	public void add(String word) {
 		word = word.toLowerCase();
 		Node cur = _root;
