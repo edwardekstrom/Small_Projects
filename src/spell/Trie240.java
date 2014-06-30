@@ -29,7 +29,11 @@ public class Trie240 implements Trie{
 	@Override
 	public String toString(){
 		Collections.sort(_allWords);
-		return _allWords.toString();
+		StringBuilder sb = new StringBuilder();
+		for(String s : _allWords){
+			sb.append(s + " " + find(s)._wordCount);
+		}
+		return sb.toString();
 	}
 
 	@Override
@@ -42,7 +46,7 @@ public class Trie240 implements Trie{
 	}
 
 	private boolean equals(Trie240 t){
-		if(t == null || t._totalNodes != this._totalNodes || t._totalWords != this._totalWords || !t.toString().equals(this.toString()) || !sameCounts(t)){
+		if(t == null || t._totalNodes != this._totalNodes || t._totalWords != this._totalWords || !t.toString().equals(this.toString())){
 			return false;
 		}else{
 			return true;
