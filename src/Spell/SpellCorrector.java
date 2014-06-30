@@ -1,4 +1,4 @@
-package Spell;
+package spell;
 
 import java.io.IOException;
 

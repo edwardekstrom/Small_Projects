@@ -1,4 +1,4 @@
-package Spell;
+package spell;
 /**
  * Your trie class should implement the Trie interface
  */

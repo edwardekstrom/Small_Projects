@@ -1,5 +1,8 @@
-package Spell;
-public class Trie240 implements Spell.Trie{
+package spell;
+import java.util.ArrayList;
+import java.util.Collections;
+public class Trie240 implements Trie{
+
 	
 	public static void main(String[] args){
 		Trie240 t = new Trie240();
@@ -15,10 +18,35 @@ public class Trie240 implements Spell.Trie{
 	private Node _root;
 	private int _totalWords;
 	private int _totalNodes;
+	private ArrayList<String> _allWords;
 	public Trie240(){
 		_root = new Node();
 		_totalWords = 0;
 		_totalNodes = 1;
+		_allWords = new ArrayList<String>();
+	}
+
+	@Override
+	public String toString(){
+		Collections.sort(_allWords);
+		return toString();
+	}
+
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Trie240){
+			return equals((Trie240)o);
+		}else{
+			return false;
+		}
+	}
+
+	private boolean equals(Trie240 t){
+		if(t == null || t._totalNodes != this._totalNodes || t._totalWords != this._totalWords || t.toString() != this.toString()){
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 	@Override
@@ -33,7 +61,10 @@ public class Trie240 implements Spell.Trie{
 			}
 			cur = cur._children[(int)(word.charAt(i)) - 97];
 		}
-		if(cur._wordCount == 0) _totalWords++;
+		if(cur._wordCount == 0){
+			_totalWords++;
+			_allWords.add(word);
+		}
 		cur._wordCount++;
 	}
 
