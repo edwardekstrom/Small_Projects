@@ -14,6 +14,7 @@ public class Trie240 implements Trie{
 		System.out.println(t.find(""));
 		System.out.println(t.find("hells"));
 		System.out.println(t.find("hello"));
+		System.out.println(t.toString());
 	}
 	private Node _root;
 	private int _totalWords;
@@ -31,7 +32,7 @@ public class Trie240 implements Trie{
 		Collections.sort(_allWords);
 		StringBuilder sb = new StringBuilder();
 		for(String s : _allWords){
-			sb.append(s + " " + find(s)._wordCount);
+			sb.append(s + " " + find(s)._wordCount + "\n");
 		}
 		return sb.toString();
 	}
