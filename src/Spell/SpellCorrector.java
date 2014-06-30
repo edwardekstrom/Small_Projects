@@ -1,3 +1,5 @@
+package Spell;
+
 import java.io.IOException;
 
 public interface SpellCorrector {

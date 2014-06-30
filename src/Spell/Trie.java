@@ -1,3 +1,4 @@
+package Spell;
 /**
  * Your trie class should implement the Trie interface
  */

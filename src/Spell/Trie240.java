@@ -1,4 +1,4 @@
-
+package Spell;
 public class Trie240 implements Trie{
 	
 	public static void main(String[] args){
