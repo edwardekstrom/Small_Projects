@@ -1,5 +1,5 @@
 package Spell;
-public class Trie240 implements Trie{
+public class Trie240 implements Spell.Trie{
 	
 	public static void main(String[] args){
 		Trie240 t = new Trie240();
