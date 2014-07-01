@@ -11,8 +11,8 @@ import java.util.TreeSet;
 public class Spell implements SpellCorrector {
 
     public static void main(String[] args) {
-        String dictionaryPath = System.getProperty("user.dir") + "\\src\\words.txt";
-//        String dictionaryPath = System.getProperty("user.dir") + "/src/words.txt";
+//        String dictionaryPath = System.getProperty("user.dir") + "\\src\\words.txt";
+        String dictionaryPath = System.getProperty("user.dir") + "/src/words.txt";
         String theWord = "helloz";
         if (args.length > 2) {
             System.out.println("too many args");
