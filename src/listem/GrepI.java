@@ -37,21 +37,19 @@ public class GrepI extends FileSearcher implements Grep {
     }
 
     public List<String> findSubstringMatches(File f, Pattern substringPattern) {
-        Scanner scanner = null;
+        Scanner scanner;
         LinkedList<String> matchingLines = new LinkedList<String>();
         try {
             scanner = new Scanner(f);
+            while (scanner.hasNextLine()) {
+                String s = scanner.nextLine();
+                if (substringPattern.matcher(s).matches()) {
+                    matchingLines.add(s);
+                }
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        while (scanner.hasNextLine()) {
-            String s = scanner.nextLine();
-            if (substringPattern.matcher(s).matches()) {
-                matchingLines.add(s);
-            }
-        }
-
         return matchingLines;
     }
 }

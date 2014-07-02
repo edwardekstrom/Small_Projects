@@ -34,15 +34,15 @@ public class LineCounterI extends FileSearcher implements LineCounter {
 
     public int countLines(File f) {
         int lines = 0;
-        Scanner scanner = null;
+        Scanner scanner;
         try {
             scanner = new Scanner(f);
+            while (scanner.hasNextLine()) {
+                scanner.nextLine();
+                lines++;
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        while (scanner.hasNextLine()) {
-            scanner.nextLine();
-            lines++;
         }
         return lines;
     }
