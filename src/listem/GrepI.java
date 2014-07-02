@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author i53425
+ * @author Edward Ekstrom
  */
 public class GrepI extends FileSearcher implements Grep{
     

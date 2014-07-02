@@ -15,7 +15,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author i53425
+ * @author Edward Ekstrom
  */
 public abstract class FileSearcher {
     
