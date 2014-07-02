@@ -21,24 +21,11 @@ import java.util.regex.Pattern;
  *
  * @author i53425
  */
-public class GrepI implements Grep{
+public class GrepI extends FileSearcher implements Grep{
     
      public Map<File, List<String>> grep(File directory, String fileSelectionPattern, String substringSelectionPattern, boolean recursive) {
-        final boolean rec = recursive;
-        final Pattern fPat = Pattern.compile(fileSelectionPattern);
         Pattern sPat = Pattern.compile(".*" + substringSelectionPattern + ".*");
-        File[] files = directory.listFiles(new FileFilter() {
-            public boolean accept(File f) {
-                if (!f.canRead()) {
-                    return false;
-                }
-                if (f.isDirectory()) {
-                    return rec;
-                }
-                return fPat.matcher(f.getName()).matches();
-            }
-        });
-
+        List<File> files = search(directory, fileSelectionPattern, recursive);
         Map<File, List<String>> m = new TreeMap<File, List<String>>();
         if (files != null) {
             for (File f : files) {

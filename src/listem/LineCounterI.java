@@ -19,32 +19,16 @@ import java.util.regex.Pattern;
  *
  * @author i53425
  */
-public class LineCounterI implements LineCounter{
+public class LineCounterI extends FileSearcher implements LineCounter {
     
     public Map<File, Integer> countLines(File directory, String fileSelectionPattern,  boolean recursive){
-        final boolean rec = recursive;
-        final Pattern fPat = Pattern.compile(fileSelectionPattern);
-        File[] files = directory.listFiles(new FileFilter() {
-            public boolean accept(File f) {
-                if (!f.canRead()) {
-                    return false;
-                }
-                if (f.isDirectory()) {
-                    return rec;
-                }
-                return fPat.matcher(f.getName()).matches();
-            }
-        });
+        List<File> files = search(directory, fileSelectionPattern, recursive);
 
         Map<File, Integer> m = new TreeMap<File, Integer>();
         if (files != null) {
             for (File f : files) {
-                if (f.isDirectory()) {
-                    m.putAll(countLines(f, fileSelectionPattern, recursive));
-                } else {
-                    int l = process(f);
-                    m.put(f, l);
-                }
+                int l = process(f);
+                m.put(f, l);
             }
         }
 
