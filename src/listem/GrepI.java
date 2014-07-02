@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package listem;
 
 import java.io.File;
@@ -21,46 +20,38 @@ import java.util.regex.Pattern;
  *
  * @author Edward Ekstrom
  */
-public class GrepI extends FileSearcher implements Grep{
-    
-     public Map<File, List<String>> grep(File directory, String fileSelectionPattern, String substringSelectionPattern, boolean recursive) {
+public class GrepI extends FileSearcher implements Grep {
+
+    public Map<File, List<String>> grep(File directory, String fileSelectionPattern, String substringSelectionPattern, boolean recursive) {
         Pattern sPat = Pattern.compile(".*" + substringSelectionPattern + ".*");
         List<File> files = search(directory, fileSelectionPattern, recursive);
         Map<File, List<String>> m = new TreeMap<File, List<String>>();
-        if (files != null) {
-            for (File f : files) {
-                if (f.isDirectory()) {
-                    m.putAll(grep(f, fileSelectionPattern, substringSelectionPattern, recursive));
-                } else {
-                    List<String> l = process(f, sPat);
-                    if (l.size() > 0) {
-                        m.put(f, l);
-                    }
-                }
+        for (File f : files) {
+            List<String> l = findSubstringMatches(f, sPat);
+            if (l.size() > 0) {
+                m.put(f, l);
             }
         }
 
         return m;
     }
-    
-    public List<String> process(File f, Pattern sPat) {
-        int matches = 0;
 
-        Scanner sc = null;
-        LinkedList<String> l = new LinkedList<String>();
+    public List<String> findSubstringMatches(File f, Pattern substringPattern) {
+        Scanner scanner = null;
+        LinkedList<String> matchingLines = new LinkedList<String>();
         try {
-            sc = new Scanner(f);
+            scanner = new Scanner(f);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        while (sc.hasNextLine()) {
-            String s = sc.nextLine();
-            if (sPat.matcher(s).matches()) {
-                l.add(s);
+        while (scanner.hasNextLine()) {
+            String s = scanner.nextLine();
+            if (substringPattern.matcher(s).matches()) {
+                matchingLines.add(s);
             }
         }
 
-        return l;
+        return matchingLines;
     }
 }
