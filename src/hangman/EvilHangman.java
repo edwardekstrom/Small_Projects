@@ -41,8 +41,8 @@ public class EvilHangman implements EvilHangmanGame{
     }
 
     Set<String> _dictionary;
-    private int _wordLength;
-    private int _guessesLeft;
+    public int _wordLength;
+    public int _guessesLeft;
     Set<String> _usedLetters;
     String _currentWord;
     String _originalWord;
@@ -211,27 +211,54 @@ public class EvilHangman implements EvilHangmanGame{
 
         bestGroups = newBestGroups;
         int rightmost = _originalWord.length();
-        int curRightmost;
+        int curRightmost = -1;
+
+
+//        System.out.println("rightmost = " + rightmost);
+//        for(String s : newBestGroups){
+//                System.out.println(s + " " + s.lastIndexOf("" + guess, rightmost));
+//                if(s.lastIndexOf("" + guess, rightmost) > curRightmost){
+//                    curRightmost = s.lastIndexOf("" + guess, rightmost);
+//                }
+//            }
+//        rightmost--;
+//        System.out.println("rightmost = " + rightmost);
+//
+//        for(String s : newBestGroups){
+//            System.out.println(s + " " + s.lastIndexOf("" + guess, rightmost));
+//            if(s.lastIndexOf("" + guess, rightmost) > curRightmost){
+//                curRightmost = s.lastIndexOf("" + guess, rightmost);
+//            }
+//        }
+
+//        System.out.println(newBestGroups);
+
         while(bestGroups.size() > 1){
             bestGroups = new LinkedList<String>();
-            curRightmost = rightmost;
+            curRightmost = -1;
+//            System.out.println(rightmost);
             for(String s : newBestGroups){
+//                System.out.println(s + " " + s.lastIndexOf("" + guess, rightmost));
                 if(s.lastIndexOf("" + guess, rightmost) > curRightmost){
                     curRightmost = s.lastIndexOf("" + guess, rightmost);
                 }
             }
+//            System.out.println(curRightmost);
             for(String s : newBestGroups){
+//                System.out.println(s + " = " + s.lastIndexOf("" + guess, rightmost));
                 if(s.lastIndexOf("" + guess, rightmost) == curRightmost){
                     bestGroups.add(s);
                 }
             }
             newBestGroups = bestGroups;
-            rightmost = curRightmost;
+            rightmost = curRightmost - 1;
+//            System.out.println("rightmost' = " + rightmost);
+//            System.out.println(bestGroups);
         }
         _currentWord = bestGroups.get(0);
 
         _dictionary = groups.get(bestGroups.get(0));
-        printDictionary("rightmost");
+//        printDictionary("rightmost");
         return groups.get(bestGroups.get(0));
     }
 

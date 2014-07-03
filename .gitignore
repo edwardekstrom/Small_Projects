@@ -15,3 +15,5 @@ src/output.ppm
 /dist/
 .idea/
 *.iml
+dict.txt
+src/hangman/test.java
