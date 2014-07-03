@@ -127,12 +127,7 @@ public class EvilHangman implements EvilHangmanGame{
                 if(_guessesLeft != 0){
                     System.out.println("No, there are no " + guess + "'s\n");
                 }
-            }
-            if(_dictionary.size() < 10){
-                for(String s : _dictionary){
-                    System.out.println(s);
-                }
-            }
+            }  
         }
         System.out.println("You lost!");
         System.out.println("The word was: " + _dictionary.iterator().next());
