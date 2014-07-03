@@ -216,7 +216,7 @@ public class EvilHangman implements EvilHangmanGame{
             bestGroups = new LinkedList<String>();
             curRightmost = rightmost;
             for(String s : newBestGroups){
-                if(s.lastIndexOf("" + guess, rightmost) < curRightmost){
+                if(s.lastIndexOf("" + guess, rightmost) > curRightmost){
                     curRightmost = s.lastIndexOf("" + guess, rightmost);
                 }
             }
