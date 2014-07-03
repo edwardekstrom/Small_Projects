@@ -33,6 +33,7 @@ public class EvilHangman implements EvilHangmanGame{
             EvilHangman eh = new EvilHangman();
             eh._guessesLeft = guessesLeft;
             eh.startGame(f,wordLength);
+            eh.startGame();
         }catch(Exception e){
             e.printStackTrace();
             return;
@@ -84,6 +85,10 @@ public class EvilHangman implements EvilHangmanGame{
             }
         }
 
+
+    }
+
+    private void startGame(){
         Scanner in = new Scanner(System.in);
         String guess;
         int correct = 0;
@@ -127,7 +132,7 @@ public class EvilHangman implements EvilHangmanGame{
                 if(_guessesLeft != 0){
                     System.out.println("No, there are no " + guess + "'s\n");
                 }
-            }  
+            }
         }
         System.out.println("You lost!");
         System.out.println("The word was: " + _dictionary.iterator().next());
