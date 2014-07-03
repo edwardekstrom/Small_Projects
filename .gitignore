@@ -13,3 +13,5 @@ src/output.ppm
 *.class
 *.DS_Store
 /dist/
+.idea/
+*.iml
