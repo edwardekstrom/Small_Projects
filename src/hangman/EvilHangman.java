@@ -33,12 +33,6 @@ public class EvilHangman implements EvilHangmanGame{
             EvilHangman eh = new EvilHangman();
             eh._guessesLeft = guessesLeft;
             eh.startGame(f,wordLength);
-            eh.makeGuess('v');
-            System.out.println("**********");
-            eh.makeGuess('l');
-            System.out.println("**********");
-            eh.makeGuess('z');
-            System.out.println("**********");
             eh.startGame();
         }catch(Exception e){
             e.printStackTrace();
@@ -182,22 +176,13 @@ public class EvilHangman implements EvilHangmanGame{
         }
 
         if(bestGroups.size() == 1){
-            _currentWord = bestGroups.get(0);
 
-            for(String s : groups.get(bestGroups.get(0))){
-                if(s.contains("l"))
-                System.out.println(s);
-            }
+            _currentWord = bestGroups.get(0);
             _dictionary = groups.get(bestGroups.get(0));
             return groups.get(bestGroups.get(0));
         }
         if(bestGroups.contains(_originalWord)) {
             _currentWord = _originalWord;
-
-            for(String s : groups.get(bestGroups.get(0))){
-                if(s.contains("l"))
-                System.out.println(s);
-            }
             _dictionary = groups.get(_originalWord);
             return groups.get(_originalWord);
         }
@@ -213,6 +198,12 @@ public class EvilHangman implements EvilHangmanGame{
                 newBestGroups.add(s);
             }
         }
+        if(bestGroups.size() == 1){
+            _currentWord = bestGroups.get(0);
+            _dictionary = groups.get(bestGroups.get(0));
+            return groups.get(bestGroups.get(0));
+        }
+
         bestGroups = newBestGroups;
         int rightmost = _originalWord.length();
         int curRightmost;
@@ -232,10 +223,7 @@ public class EvilHangman implements EvilHangmanGame{
             rightmost = curRightmost;
         }
         _currentWord = bestGroups.get(0);
-        for(String s : groups.get(bestGroups.get(0))){
-            if(s.contains("l"))
-            System.out.println(s);
-        }
+
         _dictionary = groups.get(bestGroups.get(0));
         return groups.get(bestGroups.get(0));
     }
