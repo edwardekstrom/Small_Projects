@@ -31,6 +31,7 @@ public class EvilHangman implements EvilHangmanGame{
             File f = new File(dictionaryPath);
             Scanner scanner = new Scanner(f);
             EvilHangman eh = new EvilHangman();
+            eh._guessesLeft = guessesLeft;
             eh.startGame(f,wordLength);
         }catch(Exception e){
             e.printStackTrace();
@@ -71,7 +72,6 @@ public class EvilHangman implements EvilHangmanGame{
         }
         _dictionary = new TreeSet<String>();
         _wordLength = wordLength;
-        _guessesLeft = Integer.MAX_VALUE;
         _usedLetters = new TreeSet<String>();
         _currentWord = "";
         _originalWord = "";
@@ -97,8 +97,10 @@ public class EvilHangman implements EvilHangmanGame{
             }
             System.out.print("\n");
             System.out.println("Word: " + _currentWord);
+            System.out.print("Enter guess: ");
 
             guess =  in.next().toLowerCase();
+            if(guess.equals("quit")) System.exit(0);
             if(guess.length() != 1 || !Character.isLowerCase(guess.charAt(0))){
                 System.out.println("Invalid input\n");
                 continue;
@@ -109,6 +111,7 @@ public class EvilHangman implements EvilHangmanGame{
                 System.out.println("You already used that letter\n");
                 continue;
             }
+            _guessesLeft--;
             if(_currentWord.contains(guess)){
                 if(++correct == _originalWord.length()){
                     System.out.println("You won!");
@@ -119,11 +122,10 @@ public class EvilHangman implements EvilHangmanGame{
                     System.out.println("yes, there " + (numMatches > 1 ? "are" : "is") + " " + numMatches + " " + guess + (numMatches > 1 ? "'s" : "") );
                 }
             }else{
-                if(--_guessesLeft != 0){
-                    System.out.println("No, there are no " + guess + "'s");
+                if(_guessesLeft != 0){
+                    System.out.println("No, there are no " + guess + "'s\n");
                 }
             }
-
         }
         System.out.println("You lost!");
         System.out.println("The word was: " + _dictionary.iterator().next());
@@ -143,7 +145,7 @@ public class EvilHangman implements EvilHangmanGame{
                 if (s.charAt(i) == guess){
                     maskedString.append(s.charAt(i));
                 }else{
-                    maskedString.append("-");
+                    maskedString.append(_currentWord.charAt(i));
                 }
             }
             if(groups.containsKey(maskedString.toString())){
@@ -163,6 +165,11 @@ public class EvilHangman implements EvilHangmanGame{
             }else if(groups.get(key).size() == bestSize){
                 bestGroups.add(key);
             }
+        }
+
+        if(bestGroups.size() == 1){
+            _currentWord = bestGroups.get(0);
+            return groups.get(bestGroups.get(0));
         }
         if(bestGroups.contains(_originalWord)) {
             _currentWord = _originalWord;
@@ -198,6 +205,7 @@ public class EvilHangman implements EvilHangmanGame{
             }
             rightmost = curRightmost;
         }
+        _currentWord = bestGroups.get(0);
         return groups.get(bestGroups.get(0));
     }
 
