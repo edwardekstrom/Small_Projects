@@ -73,8 +73,6 @@ public class EvilHangman implements EvilHangmanGame{
         _dictionary = new TreeSet<String>();
         _wordLength = wordLength;
         _usedLetters = new TreeSet<String>();
-        _currentWord = "";
-        _originalWord = "";
         for(int i = 0; i < wordLength; i++){
             _currentWord += "-";
         }
@@ -112,14 +110,15 @@ public class EvilHangman implements EvilHangmanGame{
                 continue;
             }
             _guessesLeft--;
+            correct += countMatches(_currentWord, guess.charAt(0));
             if(_currentWord.contains(guess)){
-                if(++correct == _originalWord.length()){
+                if(correct == _originalWord.length()){
                     System.out.println("You won!");
                     System.out.println("Word: " + _currentWord);
                     return;
                 }else{
                     int numMatches = countMatches(_currentWord,guess.charAt(0));
-                    System.out.println("yes, there " + (numMatches > 1 ? "are" : "is") + " " + numMatches + " " + guess + (numMatches > 1 ? "'s" : "") );
+                    System.out.println("Yes, there " + (numMatches > 1 ? "are" : "is") + " " + numMatches + " " + guess + (numMatches > 1 ? "'s" : "") +"\n");
                 }
             }else{
                 if(_guessesLeft != 0){
