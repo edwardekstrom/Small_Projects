@@ -33,6 +33,12 @@ public class EvilHangman implements EvilHangmanGame{
             EvilHangman eh = new EvilHangman();
             eh._guessesLeft = guessesLeft;
             eh.startGame(f,wordLength);
+            eh.makeGuess('v');
+            System.out.println("**********");
+            eh.makeGuess('l');
+            System.out.println("**********");
+            eh.makeGuess('z');
+            System.out.println("**********");
             eh.startGame();
         }catch(Exception e){
             e.printStackTrace();
@@ -140,6 +146,7 @@ public class EvilHangman implements EvilHangmanGame{
 
     @Override
     public Set<String> makeGuess(char guess) throws GuessAlreadyMadeException {
+//        System.out.println("***************");
         if(_usedLetters.contains("" + guess)){
             throw new GuessAlreadyMadeException();
         }
@@ -176,10 +183,22 @@ public class EvilHangman implements EvilHangmanGame{
 
         if(bestGroups.size() == 1){
             _currentWord = bestGroups.get(0);
+
+            for(String s : groups.get(bestGroups.get(0))){
+                if(s.contains("l"))
+                System.out.println(s);
+            }
+            _dictionary = groups.get(bestGroups.get(0));
             return groups.get(bestGroups.get(0));
         }
         if(bestGroups.contains(_originalWord)) {
             _currentWord = _originalWord;
+
+            for(String s : groups.get(bestGroups.get(0))){
+                if(s.contains("l"))
+                System.out.println(s);
+            }
+            _dictionary = groups.get(_originalWord);
             return groups.get(_originalWord);
         }
         int fewest = Integer.MAX_VALUE;
@@ -213,18 +232,11 @@ public class EvilHangman implements EvilHangmanGame{
             rightmost = curRightmost;
         }
         _currentWord = bestGroups.get(0);
-        Set<String> removeWords = new TreeSet<String>();
-        for(String s : _usedLetters){
-            for(String s1 : groups.get(bestGroups.get(0))){
-                if(s1.contains(s)){
-                    removeWords.add(s1);
-                }
-            }
+        for(String s : groups.get(bestGroups.get(0))){
+            if(s.contains("l"))
+            System.out.println(s);
         }
-
-        for(String s : removeWords){
-            groups.get(bestGroups.get(0)).remove(s);
-        }
+        _dictionary = groups.get(bestGroups.get(0));
         return groups.get(bestGroups.get(0));
     }
 
