@@ -213,6 +213,18 @@ public class EvilHangman implements EvilHangmanGame{
             rightmost = curRightmost;
         }
         _currentWord = bestGroups.get(0);
+        Set<String> removeWords = new TreeSet<String>();
+        for(String s : _usedLetters){
+            for(String s1 : groups.get(bestGroups.get(0))){
+                if(s1.contains(s)){
+                    removeWords.add(s1);
+                }
+            }
+        }
+
+        for(String s : removeWords){
+            groups.get(bestGroups.get(0)).remove(s);
+        }
         return groups.get(bestGroups.get(0));
     }
 
