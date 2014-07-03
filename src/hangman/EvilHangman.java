@@ -169,6 +169,7 @@ public class EvilHangman implements EvilHangmanGame{
         for(String key : groups.keySet()){
             if(groups.get(key).size() > bestSize){
                 bestSize = groups.get(key).size();
+                bestGroups = new LinkedList<String>();
                 bestGroups.add(key);
             }else if(groups.get(key).size() == bestSize){
                 bestGroups.add(key);
@@ -179,11 +180,13 @@ public class EvilHangman implements EvilHangmanGame{
 
             _currentWord = bestGroups.get(0);
             _dictionary = groups.get(bestGroups.get(0));
+            printDictionary("size 1");
             return groups.get(bestGroups.get(0));
         }
         if(bestGroups.contains(_originalWord)) {
             _currentWord = _originalWord;
             _dictionary = groups.get(_originalWord);
+            printDictionary("original word");
             return groups.get(_originalWord);
         }
         int fewest = Integer.MAX_VALUE;
@@ -199,8 +202,10 @@ public class EvilHangman implements EvilHangmanGame{
             }
         }
         if(bestGroups.size() == 1){
+
             _currentWord = bestGroups.get(0);
             _dictionary = groups.get(bestGroups.get(0));
+            printDictionary("fewest correct");
             return groups.get(bestGroups.get(0));
         }
 
@@ -225,7 +230,16 @@ public class EvilHangman implements EvilHangmanGame{
         _currentWord = bestGroups.get(0);
 
         _dictionary = groups.get(bestGroups.get(0));
+        printDictionary("rightmost");
         return groups.get(bestGroups.get(0));
+    }
+
+    private void printDictionary(String whichOne){
+//        for(String s: _dictionary){
+//            System.out.println(s);
+//        }
+//        System.out.println(_dictionary.size());
+//        System.out.println(whichOne);
     }
 
     private int countMatches(String s, char guess){
