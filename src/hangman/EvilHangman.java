@@ -225,6 +225,7 @@ public class EvilHangman implements EvilHangmanGame{
                     bestGroups.add(s);
                 }
             }
+            newBestGroups = bestGroups;
             rightmost = curRightmost;
         }
         _currentWord = bestGroups.get(0);
