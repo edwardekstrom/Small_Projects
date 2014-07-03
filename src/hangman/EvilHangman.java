@@ -90,9 +90,12 @@ public class EvilHangman implements EvilHangmanGame{
         while(_guessesLeft > 0){
             System.out.println("You have " + _guessesLeft + " guess" + (_guessesLeft > 1 ? "es" : "") + " left");
             System.out.print("Used letters: ");
+            StringBuilder sb = new StringBuilder();
             for(String letter : _usedLetters){
-                System.out.print(letter + " ");
+                sb.append(letter + " ");
             }
+            if(sb.length() > 0) sb.deleteCharAt(sb.length() - 1);
+            System.out.print(sb.toString());
             System.out.print("\n");
             System.out.println("Word: " + _currentWord);
             System.out.print("Enter guess: ");
@@ -109,7 +112,6 @@ public class EvilHangman implements EvilHangmanGame{
                 System.out.println("You already used that letter\n");
                 continue;
             }
-            _guessesLeft--;
             correct += countMatches(_currentWord, guess.charAt(0));
             if(_currentWord.contains(guess)){
                 if(correct == _originalWord.length()){
@@ -121,8 +123,14 @@ public class EvilHangman implements EvilHangmanGame{
                     System.out.println("Yes, there " + (numMatches > 1 ? "are" : "is") + " " + numMatches + " " + guess + (numMatches > 1 ? "'s" : "") +"\n");
                 }
             }else{
+                _guessesLeft--;
                 if(_guessesLeft != 0){
                     System.out.println("No, there are no " + guess + "'s\n");
+                }
+            }
+            if(_dictionary.size() < 10){
+                for(String s : _dictionary){
+                    System.out.println(s);
                 }
             }
         }
