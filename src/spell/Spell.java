@@ -13,7 +13,7 @@ public class Spell implements SpellCorrector {
     public static void main(String[] args) {
 //        String dictionaryPath = System.getProperty("user.dir") + "\\src\\words.txt";
         String dictionaryPath = System.getProperty("user.dir") + "/src/words.txt";
-        String theWord = "hellzzz";
+        String theWord = "helloz";
         if (args.length > 2) {
             System.out.println("too many args");
             System.exit(1);
@@ -100,7 +100,6 @@ public class Spell implements SpellCorrector {
                             best.add(_trie.find(word).toString());
                         } else if (_trie.find(word)._wordCount == b) {
                             best.add(_trie.find(word).toString());
-                            System.out.println(_trie.find(word).toString());
                         }
                     }
                 }

@@ -12,3 +12,4 @@ src/main/output.ppm
 src/output.ppm
 *.class
 *.DS_Store
+/dist/
