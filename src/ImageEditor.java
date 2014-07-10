@@ -39,6 +39,7 @@ public class ImageEditor {
 			} else {
 
 			}
+                        writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -32,21 +32,20 @@ public class Image {
 		try {
 			inputFile = new File(inputFileString);
 			scanner = new Scanner(inputFile);
-			scanner.useDelimiter("\\s+|#[^\\n]*\\n");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
-//		StringBuilder sb = new StringBuilder();
-//		while (scanner.hasNextLine()) {
-//			String curLine = scanner.nextLine();
-//			if (curLine.contains("#")) {
-//				curLine = curLine.substring(0, curLine.indexOf("#"));
-//			}
-//			sb.append(curLine + "\n");
-//		}
-//		
-//		scanner = new Scanner(sb.toString());
+		StringBuilder sb = new StringBuilder();
+		while (scanner.hasNextLine()) {
+			String curLine = scanner.nextLine();
+			if (curLine.contains("#")) {
+				curLine = curLine.substring(0, curLine.indexOf("#"));
+			}
+			sb.append(curLine + "\n");
+		}
+		
+		scanner = new Scanner(sb.toString());
 		int f = 0;
 		while (scanner.hasNext() && f < 10) {
 			String next = scanner.next();
