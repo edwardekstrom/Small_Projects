@@ -54,15 +54,6 @@ public class Trie240 implements Trie{
 		}
 	}
 
-	private boolean sameCounts(Trie240 other){
-		for(String s : other._allWords){
-			if (other.find(s)._wordCount != this.find(s)._wordCount){
-				return false;
-			}
-		}
-		return true;
-	}
-
 	@Override
 	public void add(String word) {
 		word = word.toLowerCase();
