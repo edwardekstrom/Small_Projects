@@ -236,7 +236,6 @@ public class EvilHangman implements EvilHangmanGame{
                 return;
             }
             File f = new File(dictionaryPath);
-            Scanner scanner = new Scanner(f);
             EvilHangman eh = new EvilHangman();
             eh._guessesLeft = guessesLeft;
             eh.startGame(f,wordLength);
