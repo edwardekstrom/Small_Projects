@@ -10,36 +10,6 @@ import java.util.*;
  */
 public class EvilHangman implements EvilHangmanGame{
 
-    public static void main(String[] args){
-        if(args.length != 3){
-            printUsage();
-            return;
-        }
-        try{
-            String dictionaryPath = args[0];
-            int wordLength = Integer.parseInt(args[1]);
-            int guessesLeft = Integer.parseInt(args[2]);
-
-            if(wordLength < 2){
-                printUsage();
-                return;
-            }
-            if(guessesLeft < 1){
-                printUsage();
-                return;
-            }
-            File f = new File(dictionaryPath);
-            Scanner scanner = new Scanner(f);
-            EvilHangman eh = new EvilHangman();
-            eh._guessesLeft = guessesLeft;
-            eh.startGame(f,wordLength);
-            eh.startGame();
-        }catch(Exception e){
-            e.printStackTrace();
-            return;
-        }
-    }
-
     Set<String> _dictionary;
     public int _wordLength;
     public int _guessesLeft;
@@ -80,9 +50,7 @@ public class EvilHangman implements EvilHangmanGame{
         _originalWord = _currentWord;
         while(dictionaryScanner.hasNext()){
             String cur = dictionaryScanner.next();
-            if(cur.length() == wordLength){
-                _dictionary.add(cur.toLowerCase());
-            }
+            _dictionary.add(cur.toLowerCase());
         }
 
 
@@ -140,7 +108,6 @@ public class EvilHangman implements EvilHangmanGame{
 
     @Override
     public Set<String> makeGuess(char guess) throws GuessAlreadyMadeException {
-//        System.out.println("***************");
         if(_usedLetters.contains("" + guess)){
             throw new GuessAlreadyMadeException();
         }
@@ -181,13 +148,13 @@ public class EvilHangman implements EvilHangmanGame{
             _currentWord = bestGroups.get(0);
             _dictionary = groups.get(bestGroups.get(0));
             printDictionary("size 1");
-            return groups.get(bestGroups.get(0));
+            return _dictionary;
         }
         if(bestGroups.contains(_originalWord)) {
             _currentWord = _originalWord;
             _dictionary = groups.get(_originalWord);
             printDictionary("original word");
-            return groups.get(_originalWord);
+            return _dictionary;
         }
         int fewest = Integer.MAX_VALUE;
         for(String s: bestGroups){
@@ -206,60 +173,32 @@ public class EvilHangman implements EvilHangmanGame{
             _currentWord = bestGroups.get(0);
             _dictionary = groups.get(bestGroups.get(0));
             printDictionary("fewest correct");
-            return groups.get(bestGroups.get(0));
+            return _dictionary;
         }
 
         bestGroups = newBestGroups;
         int rightmost = _originalWord.length();
         int curRightmost = -1;
-
-
-//        System.out.println("rightmost = " + rightmost);
-//        for(String s : newBestGroups){
-//                System.out.println(s + " " + s.lastIndexOf("" + guess, rightmost));
-//                if(s.lastIndexOf("" + guess, rightmost) > curRightmost){
-//                    curRightmost = s.lastIndexOf("" + guess, rightmost);
-//                }
-//            }
-//        rightmost--;
-//        System.out.println("rightmost = " + rightmost);
-//
-//        for(String s : newBestGroups){
-//            System.out.println(s + " " + s.lastIndexOf("" + guess, rightmost));
-//            if(s.lastIndexOf("" + guess, rightmost) > curRightmost){
-//                curRightmost = s.lastIndexOf("" + guess, rightmost);
-//            }
-//        }
-
-//        System.out.println(newBestGroups);
-
         while(bestGroups.size() > 1){
             bestGroups = new LinkedList<String>();
             curRightmost = -1;
-//            System.out.println(rightmost);
             for(String s : newBestGroups){
-//                System.out.println(s + " " + s.lastIndexOf("" + guess, rightmost));
                 if(s.lastIndexOf("" + guess, rightmost) > curRightmost){
                     curRightmost = s.lastIndexOf("" + guess, rightmost);
                 }
             }
-//            System.out.println(curRightmost);
             for(String s : newBestGroups){
-//                System.out.println(s + " = " + s.lastIndexOf("" + guess, rightmost));
                 if(s.lastIndexOf("" + guess, rightmost) == curRightmost){
                     bestGroups.add(s);
                 }
             }
             newBestGroups = bestGroups;
             rightmost = curRightmost - 1;
-//            System.out.println("rightmost' = " + rightmost);
-//            System.out.println(bestGroups);
         }
         _currentWord = bestGroups.get(0);
 
         _dictionary = groups.get(bestGroups.get(0));
-//        printDictionary("rightmost");
-        return groups.get(bestGroups.get(0));
+        return _dictionary;
     }
 
     private void printDictionary(String whichOne){
@@ -277,4 +216,35 @@ public class EvilHangman implements EvilHangmanGame{
         }
         return counter;
     }
+    
+    public static void main(String[] args){
+        if(args.length != 3){
+            printUsage();
+            return;
+        }
+        try{
+            String dictionaryPath = args[0];
+            int wordLength = Integer.parseInt(args[1]);
+            int guessesLeft = Integer.parseInt(args[2]);
+
+            if(wordLength < 2){
+                printUsage();
+                return;
+            }
+            if(guessesLeft < 1){
+                printUsage();
+                return;
+            }
+            File f = new File(dictionaryPath);
+            Scanner scanner = new Scanner(f);
+            EvilHangman eh = new EvilHangman();
+            eh._guessesLeft = guessesLeft;
+            eh.startGame(f,wordLength);
+            eh.startGame();
+        }catch(Exception e){
+            e.printStackTrace();
+            return;
+        }
+    }
+        
 }
